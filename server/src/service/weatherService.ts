@@ -31,6 +31,9 @@ class Weather {
 // TODO: Complete the WeatherService class
 class WeatherService {
   // TODO: Define the baseURL, API key, and city name properties
+  baseURL: string = process.env.API_BASE_URL as string;
+  apiKey: string = process.env.API_KEY as string;
+  cityName: string = '';
 
   // TODO: Create fetchLocationData method
   private async fetchLocationData(query: string) {}
