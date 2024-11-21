@@ -36,7 +36,11 @@ class WeatherService {
   cityName: string = '';
 
   // TODO: Create fetchLocationData method
-  private async fetchLocationData(query: string) {}
+  private async fetchLocationData(query: string) {
+    const response = await fetch(query);
+    const locationData = await response.json();
+    return locationData;
+  }
     
   // TODO: Create destructureLocationData method
   private destructureLocationData(locationData: Coordinates): Coordinates {}
