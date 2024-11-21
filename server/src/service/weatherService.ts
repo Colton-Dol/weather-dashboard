@@ -58,7 +58,11 @@ class WeatherService {
   }
 
   // TODO: Create fetchAndDestructureLocationData method
-  private async fetchAndDestructureLocationData() {}
+  private async fetchAndDestructureLocationData() {
+    const query = this.buildGeocodeQuery();
+    const locationData = await this.fetchLocationData(query);
+    return this.destructureLocationData(locationData);
+  }
 
   // TODO: Create fetchWeatherData method
   private async fetchWeatherData(coordinates: Coordinates) {}
