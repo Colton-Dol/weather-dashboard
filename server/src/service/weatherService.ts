@@ -65,7 +65,12 @@ class WeatherService {
   }
 
   // TODO: Create fetchWeatherData method
-  private async fetchWeatherData(coordinates: Coordinates) {}
+  private async fetchWeatherData(coordinates: Coordinates) {
+    const query = this.buildWeatherQuery(coordinates);
+    const response = await fetch(query);
+    const weatherData = await response.json();
+    return weatherData;
+  }
 
   // TODO: Build parseCurrentWeather method
   private parseCurrentWeather(response: any) {}
