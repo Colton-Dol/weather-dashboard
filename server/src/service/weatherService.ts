@@ -54,7 +54,7 @@ class WeatherService {
 
   // TODO: Create buildWeatherQuery method
   private buildWeatherQuery(coordinates: Coordinates): string {
-    return `${this.baseURL}data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=&{this.apiKey}`
+    return `${this.baseURL}data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${this.apiKey}&units=imperial`
   }
 
   // TODO: Create fetchAndDestructureLocationData method
@@ -68,21 +68,21 @@ class WeatherService {
   private async fetchWeatherData(coordinates: Coordinates) {
     const query = this.buildWeatherQuery(coordinates);
     const response = await fetch(query);
-    const weatherData = await response.json();
-    return weatherData;
+    return await response.json();
   }
 
   // TODO: Build parseCurrentWeather method
   private parseCurrentWeather(response: any) {
-    return new Weather(
-      response.city.name,
-      response.list[0].dt_txt,
-      response.list[0].weather[0].icon,
-      response.list[0].weather[0].description,
-      response.list[0].main.temp,
-      response.list[0].wind.speed,
-      response.list[0].main.humidity
-    )
+    const data = {
+      city: response.city.name,
+      date: response.list[0].dt_txt.split(' ')[0],
+      icon: response.list[0].weather[0].icon,
+      iconDescription: response.list[0].weather[0].description,
+      tempF: response.list[0].main.temp,
+      windSpeed: response.list[0].wind.speed,
+      humidity: response.list[0].main.humidity
+    };
+    return data;
   }
 
   // TODO: Complete buildForecastArray method
