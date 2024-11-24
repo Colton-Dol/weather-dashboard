@@ -78,15 +78,16 @@ class WeatherService {
 
   // TODO: Build parseCurrentWeather method
   private parseCurrentWeather(response: any) {
-    const data = {
-      city: response.city.name,
-      date: response.list[0].dt_txt.split(' ')[0],
-      icon: response.list[0].weather[0].icon,
-      iconDescription: response.list[0].weather[0].description,
-      tempF: response.list[0].main.temp,
-      windSpeed: response.list[0].wind.speed,
-      humidity: response.list[0].main.humidity
-    };
+    const currentDate = new Date((response.dt + response.timezone) * 1000);
+    const data = new Weather (
+      response.name,
+      `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`,
+      response.weather[0].icon,
+      response.weather[0].description,
+      response.main.temp,
+      response.wind.speed,
+      response.main.humidity
+    );
     return data;
   }
 
