@@ -9,7 +9,7 @@ import WeatherService from '../../service/weatherService.js';
 router.post('/', (req: Request, res: Response) => {
   try {
      const cityName = req.body.cityName
-     WeatherService.getWeatherForCity(cityName).then((data)=>{
+     WeatherService.getWeatherForCity(cityName).then((data)=> {
       HistoryService.addCity(cityName)
       res.json(data)
      })
@@ -23,8 +23,8 @@ router.post('/', (req: Request, res: Response) => {
 // TODO: GET search history
 router.get('/history', async (_req: Request, res: Response) => {
   try {
-     const savedCities = HistoryService.getCities();
-     res.json(savedCities)
+    const savedCities = await HistoryService.getCities();
+    res.json(savedCities);
   } catch (error) {
     console.log(error);
   }
