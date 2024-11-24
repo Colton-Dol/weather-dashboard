@@ -28,22 +28,22 @@ class HistoryService {
   // TODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
   async getCities() {
     return await this.read().then((cities) => {
-      let parsedStates: City[];
+      let parsedCities: City[];
 
       try {
-        parsedStates = [].concat(JSON.parse(cities));
+        parsedCities = [].concat(JSON.parse(cities));
       } catch (err) {
-        parsedStates = [];
+        parsedCities = [];
       }
 
-      return parsedStates;
+      return parsedCities;
     });
   }
 
   // TODO Define an addCity method that adds a city to the searchHistory.json file
   async addCity(city: string) {
     if (!city) {
-      throw new Error('state cannot be blank');
+      throw new Error('city cannot be blank');
     }
 
     const newCity: City = { name: city, id: uuidv4() };
