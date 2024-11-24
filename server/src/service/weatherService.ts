@@ -53,8 +53,10 @@ class WeatherService {
   }
 
   // TODO: Create buildWeatherQuery method
-  private buildWeatherQuery(coordinates: Coordinates): string {
-    return `${this.baseURL}data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${this.apiKey}&units=imperial`
+  private buildWeatherQuery(coordinates: Coordinates) {
+    const currentWeather = `${this.baseURL}data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lon}&units=imperial&appid=${this.apiKey}`;
+    const forecast = `${this.baseURL}data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&units=imperial&appid=${this.apiKey}`;
+    return { currentWeather, forecast };
   }
 
   // TODO: Create fetchAndDestructureLocationData method
@@ -67,8 +69,11 @@ class WeatherService {
   // TODO: Create fetchWeatherData method
   private async fetchWeatherData(coordinates: Coordinates) {
     const query = this.buildWeatherQuery(coordinates);
-    const response = await fetch(query);
-    return await response.json();
+    const currentWeatherResponse = await fetch(query.currentWeather);
+    const forecastResponse = await fetch(query.forecast);
+    const currentWeatherData = await currentWeatherResponse.json();
+    const forecastData = await forecastResponse.json();
+    return { currentWeatherData, forecastData };
   }
 
   // TODO: Build parseCurrentWeather method
