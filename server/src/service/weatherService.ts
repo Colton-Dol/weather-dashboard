@@ -93,17 +93,22 @@ class WeatherService {
 
   // TODO: Complete buildForecastArray method
   private buildForecastArray(currentWeather: Weather, weatherData: any[]) {
-    const forecastArray = weatherData.map((data) => {
-      return new Weather(
+    const forecastArray = [];
+    forecastArray.push(currentWeather);
+   
+    const forecast = weatherData.filter((day) => day.dt_txt.includes('12:00:00'));
+    forecast.forEach((day) => {
+      const data = new Weather (
         currentWeather.city,
-        data.dt_txt,
-        data.weather[0].icon,
-        data.weather[0].description,
-        data.main.temp,
-        data.wind.speed,
-        data.main.humidity
-      )
-    })
+        day.dt_txt.split(' ')[0],
+        day.weather[0].icon,
+        day.weather[0].description,
+        day.main.temp,
+        day.wind.speed,
+        day.main.humidity
+      );
+      forecastArray.push(data);
+    });
     return forecastArray;
   }
 
