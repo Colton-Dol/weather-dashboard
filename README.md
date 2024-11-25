@@ -1,6 +1,6 @@
 # Weather Dashboard
 
-![Weather Dashboard Front Page](/assets/Screenshot%20.png)
+![Weather Dashboard Front Page](/assets/Screenshot.png)
 
 ## Description
 
